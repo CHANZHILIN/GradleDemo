@@ -1,0 +1,48 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' // Kotlin
+    id 'java-gradle-plugin' // Java Gradle Plugin
+    id 'maven-publish'
+}
+dependencies {
+    //ASM相关依赖
+    implementation 'org.ow2.asm:asm:9.2'
+    implementation 'org.ow2.asm:asm-commons:9.1'
+    implementation 'com.android.tools.build:gradle:4.1.1'
+}
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+gradlePlugin{
+    plugins{
+        standaloneGradlePlugins{
+            id = 'com.bluemoon.plugin'
+            implementationClass = 'com.bluemoon.myplugin.DemoTransform'
+        }
+    }
+}
+
+publishing {
+    publications{
+        maven(MavenPublication) {
+            groupId "com.bluemoon.plugin"
+            artifactId 'MyPlugin'
+            version "1.0.0"
+            //如果是war包填写components.web，如果是jar包填写components.java
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url = "../plugins"
+        }
+    }
+}
