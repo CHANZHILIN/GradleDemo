@@ -15,15 +15,15 @@ open class UseAsm {
 
     var configService: ConfigService = ConfigService()
 
-    // 嵌套扩展闭包函数，方法名为 useTryCatch（方法名不一定需要与属性名一致）
+    // 嵌套扩展闭包函数，方法名为 configService（方法名不一定需要与属性名一致）
     fun configService(action: Action<ConfigService>) {
         action.execute(configService)
     }
-    // 嵌套扩展闭包函数，方法名为 useTryCatch
+
+    // 嵌套扩展闭包函数，方法名为 configService
     fun configService(closure: Closure<ConfigService>) {
         ConfigureUtil.configure(closure, configService)
     }
-
 
     companion object {
         // 将获取扩展对象的代码封装为静态方法

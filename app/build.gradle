@@ -46,13 +46,27 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 //    implementation project(':myplugin')
 }
-if (ASM_ENABLE.toBoolean()){
+if (ASM_ENABLE.toBoolean()) {
     apply plugin: 'com.bluemoon.plugin'
     useAsm {
         useAsmToApplication true
-        configService{
+        configService {
             uploadToService = true
             serviceAddress = "https://www.bluemoon.test.api"
+        }
+    }
+
+    envConfig {
+        services {
+            release {
+                url = "https://www.bluemoon.release.api"
+            }
+            debug {
+                url = "https://www.bluemoon.debug.api"
+            }
+            dev {
+                url = "https://www.bluemoon.dev.api"
+            }
         }
     }
 

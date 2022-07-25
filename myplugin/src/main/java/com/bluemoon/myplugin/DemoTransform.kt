@@ -18,8 +18,9 @@ import java.io.FileOutputStream
  */
 class DemoTransform : Plugin<Project>, Transform() {
 
-    companion object{
+    companion object {
         val USE_ASM = "useAsm"
+        val NAME_DOMAIN = "envConfig"
     }
 
     override fun apply(project: Project) {
@@ -125,16 +126,23 @@ class DemoTransform : Plugin<Project>, Transform() {
         }
     }
 
-    private fun applyExtension(project: Project){
+    private fun applyExtension(project: Project) {
         // 创建扩展，并添加到 ExtensionContainer
-        project.extensions.create(USE_ASM,UseAsm::class.java)
+        project.extensions.create(USE_ASM, UseAsm::class.java)
+        project.extensions.create(NAME_DOMAIN, EnvConfigExtension::class.java, project)
     }
 
     private fun applyMavenFeature(project: Project) {
         project.afterEvaluate {
+            //自定义拓展字段
             val rootConfig = UseAsm.getConfig(project)
             println(">>>CHEN>>> Config:projectName=${project.name},useAsmToApplication=${rootConfig.useAsmToApplication}")
             println(">>>CHEN>>> Config:tryCatch=uploadToService=${rootConfig.configService.uploadToService},uploadServiceAddress=${rootConfig.configService.serviceAddress}")
+            //自定义拓展字段 NamedDomainObjectContainer
+            val domainConfig = EnvConfigExtension.getNamedDomainExtensionConfig(project)
+            domainConfig.services.all {
+                println(">>>CHEN>>> servicesConfig = $it")
+            }
         }
     }
 
