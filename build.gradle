@@ -1,6 +1,6 @@
 buildscript {
     repositories {
-        maven{
+        maven {
             url './plugins'
         }
         google()
@@ -8,8 +8,11 @@ buildscript {
 
     }
     dependencies {
-        classpath "com.bluemoon.plugin:MyPlugin:1.0.0"
-//        classpath project(":myplugin")
+        if (ASM_ENABLE.toBoolean()) {
+            classpath "com.bluemoon.plugin:MyPlugin:1.0.0"
+        } /*else {
+            classpath project(":myplugin")
+        }*/
     }
 }
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -22,7 +25,7 @@ plugins {
 allprojects {
     repositories {
 
-        maven{
+        maven {
             url './plugins'
         }
         google()

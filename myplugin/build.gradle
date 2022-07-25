@@ -1,9 +1,10 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' // Kotlin
+    id 'org.jetbrains.kotlin.jvm'// Kotlin
     id 'java-gradle-plugin' // Java Gradle Plugin
     id 'maven-publish'
 }
 dependencies {
+//    implementation gradleApi()
     //ASM相关依赖
     implementation 'org.ow2.asm:asm:9.2'
     implementation 'org.ow2.asm:asm-commons:9.1'
