@@ -133,7 +133,8 @@ class DemoTransform : Plugin<Project>, Transform() {
     private fun applyMavenFeature(project: Project) {
         project.afterEvaluate {
             val rootConfig = UseAsm.getConfig(project)
-            println(">>>CHEN>>> Config:isUseAsm=${rootConfig.useAsmToApplication}")
+            println(">>>CHEN>>> Config:projectName=${project.name},useAsmToApplication=${rootConfig.useAsmToApplication}")
+            println(">>>CHEN>>> Config:tryCatch=uploadToService=${rootConfig.configService.uploadToService},uploadServiceAddress=${rootConfig.configService.serviceAddress}")
         }
     }
 

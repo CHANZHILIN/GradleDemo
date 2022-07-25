@@ -13,15 +13,15 @@ import org.gradle.util.internal.ConfigureUtil
 open class UseAsm {
     var useAsmToApplication: Boolean = false
 
-    var useTryCatch: UseTryCatch = UseTryCatch()
+    var configService: ConfigService = ConfigService()
 
     // 嵌套扩展闭包函数，方法名为 useTryCatch（方法名不一定需要与属性名一致）
-    fun useTryCatch(action: Action<UseTryCatch>) {
-        action.execute(useTryCatch)
+    fun configService(action: Action<ConfigService>) {
+        action.execute(configService)
     }
     // 嵌套扩展闭包函数，方法名为 useTryCatch
-    fun useTryCatch(closure: Closure<UseTryCatch>) {
-        ConfigureUtil.configure(closure, useTryCatch)
+    fun configService(closure: Closure<ConfigService>) {
+        ConfigureUtil.configure(closure, configService)
     }
 
 
@@ -30,7 +30,7 @@ open class UseAsm {
         fun getConfig(project: Project): UseAsm {
             // 从 ExtensionContainer 容器获取扩展对象
             var extension = project.extensions.findByType(UseAsm::class.java)
-            println(">>>CHEN>>> Config:project=${project.name},useAsmToApplication=${extension?.useAsmToApplication},uploadToService=${extension?.useTryCatch?.uploadToService}")
+
             // 配置缺省的时候，赋予默认值
             if (null == extension) {
                 extension = UseAsm()
