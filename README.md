@@ -1,3 +1,3 @@
 # GradleDemo
 
-插件化开发demo
+Gradle插件开发demo

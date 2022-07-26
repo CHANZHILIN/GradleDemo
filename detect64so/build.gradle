@@ -1,0 +1,46 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'// Kotlin
+    id 'java-gradle-plugin' // Java Gradle Plugin
+    id 'maven-publish'
+}
+dependencies {
+    implementation gradleApi()
+//    implementation 'com.android.tools.build:gradle:4.1.1'
+}
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+gradlePlugin{
+    plugins{
+        standaloneGradlePlugins{
+            id = 'com.bluemoon.detect64so'
+            implementationClass = 'com.bluemoon.detect64so.Detect64soPlugin'
+        }
+    }
+}
+
+publishing {
+    publications{
+        maven(MavenPublication) {
+            groupId "com.bluemoon.detect64so"
+            artifactId 'Detect64soPlugin'
+            version "1.0.0"
+            //如果是war包填写components.web，如果是jar包填写components.java
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url = "../Detect64soPlugin"
+        }
+    }
+}

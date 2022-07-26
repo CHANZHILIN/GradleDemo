@@ -33,6 +33,11 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
 }
 
 dependencies {
@@ -45,6 +50,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 //    implementation project(':myplugin')
+    implementation files('libs/openDefault-4.2.7.aar')
 }
 if (ASM_ENABLE.toBoolean()) {
     apply plugin: 'com.bluemoon.plugin'
@@ -69,5 +75,12 @@ if (ASM_ENABLE.toBoolean()) {
             }
         }
     }
-
+    if (DETECT_ENABLE.toBoolean()) {
+        apply plugin: 'com.bluemoon.detect64so'
+        Detect64soPlugin {
+            detect{
+                enableDetect = true
+            }
+        }
+    }
 }
