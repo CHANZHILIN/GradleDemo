@@ -30,18 +30,11 @@ class Detect64soPlugin : Plugin<Project> {
     private fun applyFeature(project: Project) {
         project.afterEvaluate {
             val detect64Extension = Detect64Extension.getDetect64ExtensionConfig(project)
-            val detect64Info = detect64Extension.detect
-            println(">>>CHEN>>> Detect =>enableDetect = ${detect64Info.enableDetect}")
+            println(">>>CHEN>>> Detect =>enableDetect = ${detect64Extension.enableDetect}")
             //配置了enableDetect为ture,则执行新建Task
-            if (detect64Info.enableDetect) {
-                applyBit64Feature(project)
+            if (detect64Extension.enableDetect) {
+                Bit64Feature().apply(project)
             }
         }
     }
-
-    private fun applyBit64Feature(project: Project) {
-        val feature = Bit64Feature()
-        feature.apply(project)
-    }
-
 }

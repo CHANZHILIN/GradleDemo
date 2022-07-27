@@ -10,14 +10,15 @@ import org.gradle.util.internal.ConfigureUtil
  * Created by CHEN on 2022/7/26.
  */
 open class Detect64Extension {
-    var detect: Detect64soInfo = Detect64soInfo()
+   /* var detect: Detect64soInfo = Detect64soInfo()
     fun detect(action: Action<Detect64soInfo>) {
         action.execute(detect)
     }
 
     fun detect(closure: Closure<Detect64soInfo>) {
         ConfigureUtil.configure(closure, detect)
-    }
+    }*/
+    var enableDetect = false
 
     companion object {
         // 将获取扩展对象的代码封装为静态方法

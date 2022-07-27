@@ -42,6 +42,8 @@ class Bit64Feature {
         }
     }
 
+    var soCount = 0
+
     /**
      * 查找so文件
      */
@@ -51,12 +53,13 @@ class Bit64Feature {
         }
         if (file.isDirectory) {
             file.listFiles()?.forEach {
-                //文件夹 回归遍历
+                //文件夹 递归遍历
                 findSoFile(it, soList)
             }
         } else if (file.absolutePath.endsWith(".so")) {
+            soCount++
             //将符合条件的so分别加入维护的列表中
-            println("Detect64so => so package absolutePath: ${file.absolutePath}")
+            println("Detect64so => Num[${soCount}] so package absolutePath: ${file.absolutePath}")
             val so: SoFile = generateSoInfo(file)
             if (so.soPath.contains("armeabi-v7a")) {
                 soList.armeabiv_v7a.add(so)

@@ -75,12 +75,10 @@ if (ASM_ENABLE.toBoolean()) {
             }
         }
     }
-    if (DETECT_ENABLE.toBoolean()) {
-        apply plugin: 'com.bluemoon.detect64so'
-        Detect64soPlugin {
-            detect{
-                enableDetect = true
-            }
-        }
+}
+if (DETECT_ENABLE.toBoolean()) {
+    apply plugin: 'com.bluemoon.detect64so'
+    Detect64soPlugin {
+        enableDetect = true
     }
 }

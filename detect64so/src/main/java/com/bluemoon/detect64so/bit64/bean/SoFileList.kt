@@ -59,7 +59,7 @@ class SoFileList {
         so32List.forEach { so32 ->
             if (!so64Set.contains(so32)) {
                 count++
-                println("Num-${count}:${so32.toString()}")
+                println("\tNum-${count}=>${so32.toString()}")
             }
         }
     }
@@ -72,7 +72,7 @@ class SoFileList {
             var count = 0
             soList.forEach {
                 count++
-                println("Num-${count}:${it.toString()}")
+                println("\tNum-${count}=>${it.toString()}")
             }
         }
     }
