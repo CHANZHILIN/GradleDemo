@@ -16,5 +16,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "GradleDemo"
 include ':app'
-include ':myplugin'
 include ':detect64so'
+include ':myplugin'
+//includeBuild('./myplugin')
+include ':privacyAgreement'

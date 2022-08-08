@@ -6,6 +6,9 @@ buildscript {
         maven {
             url './Detect64soPlugin'
         }
+        maven {
+            url = "./privacyDetectPlugin"
+        }
         google()
         mavenCentral()
 
@@ -14,10 +17,13 @@ buildscript {
         if (ASM_ENABLE.toBoolean()) {
             classpath "com.bluemoon.plugin:MyPlugin:1.0.0"
         } /*else {
-            classpath project(":myplugin")
+            classpath ':myplugin'
         }*/
         if (DETECT_ENABLE.toBoolean()) {
             classpath "com.bluemoon.detect64so:Detect64soPlugin:1.0.0"
+        }
+        if (PRIVACY_DETECT_ENABLE.toBoolean()) {
+            classpath "com.bluemoon.privacyagreement:PrivacyDetectPlugin:1.0.0"
         }
     }
 }
@@ -37,6 +43,9 @@ allprojects {
         }
         maven {
             url './Detect64soPlugin'
+        }
+        maven {
+            url './privacyDetectPlugin'
         }
         google()
         mavenCentral()

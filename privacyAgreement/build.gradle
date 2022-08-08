@@ -3,16 +3,12 @@ plugins {
     id 'java-gradle-plugin' // Java Gradle Plugin
     id 'maven-publish'
 }
-repositories {
-    google()
-    mavenCentral()
-}
 dependencies {
 //    implementation gradleApi()
+    implementation 'com.android.tools.build:gradle:4.1.1'
     //ASM相关依赖
     implementation 'org.ow2.asm:asm:9.2'
     implementation 'org.ow2.asm:asm-commons:9.2'
-    implementation 'com.android.tools.build:gradle:4.1.1'
 }
 sourceSets {
     main {
@@ -28,8 +24,8 @@ sourceSets {
 gradlePlugin{
     plugins{
         standaloneGradlePlugins{
-            id = 'com.bluemoon.plugin'
-            implementationClass = 'com.bluemoon.myplugin.DemoTransform'
+            id = 'com.bluemoon.privacyagreement'
+            implementationClass = 'com.bluemoon.privacyagreement.PrivacyDetectPlugin'
         }
     }
 }
@@ -37,8 +33,8 @@ gradlePlugin{
 publishing {
     publications{
         maven(MavenPublication) {
-            groupId "com.bluemoon.plugin"
-            artifactId 'MyPlugin'
+            groupId "com.bluemoon.privacyagreement"
+            artifactId 'PrivacyDetectPlugin'
             version "1.0.0"
             //如果是war包填写components.web，如果是jar包填写components.java
             from components.java
@@ -47,7 +43,7 @@ publishing {
 
     repositories {
         maven {
-            url = "../plugins"
+            url = "../privacyDetectPlugin"
         }
     }
 }
