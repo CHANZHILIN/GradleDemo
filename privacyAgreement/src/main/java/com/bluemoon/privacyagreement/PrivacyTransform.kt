@@ -38,17 +38,19 @@ class PrivacyTransform(private val config: PrivacyAgreementConfig) : BaseTransfo
         val classNode = ClassNode()
         val classReader = ClassReader(byteArray)
         classReader.accept(classNode, ClassReader.EXPAND_FRAMES)
+        //class的方法列表
         val methods = classNode.methods
         val mRuntimeRecord = runtimeRecord
         if (!methods.isNullOrEmpty()) {
             val taskList = mutableListOf<() -> Unit>()
             val tempLintLog = StringBuilder()
+            //遍历方法列表
             for (methodNode in methods) {
-                val instructions = methodNode.instructions
-                val instructionIterator = instructions?.iterator()
-                if (instructionIterator != null) {
+                //方法信息
+                methodNode.instructions?.iterator()?.let { instructionIterator ->
                     while (instructionIterator.hasNext()) {
                         val instruction = instructionIterator.next()
+                        //是否需要hook的点
                         if (instruction.isHookPoint()) {
                             val lintLog = getLintLog(
                                 classNode,
@@ -57,7 +59,7 @@ class PrivacyTransform(private val config: PrivacyAgreementConfig) : BaseTransfo
                             )
                             tempLintLog.append(lintLog)
                             tempLintLog.append("\n\n")
-
+                            //不为null,运行时检测
                             if (mRuntimeRecord != null) {
                                 taskList.add {
                                     insertRuntimeLog(
@@ -67,9 +69,7 @@ class PrivacyTransform(private val config: PrivacyAgreementConfig) : BaseTransfo
                                     )
                                 }
                             }
-                            Log.log(
-                                "PrivacyTransform $lintLog"
-                            )
+                            Log.log("PrivacyTransform $lintLog")
                         }
                     }
                 }
@@ -90,6 +90,9 @@ class PrivacyTransform(private val config: PrivacyAgreementConfig) : BaseTransfo
         return byteArray
     }
 
+    /**
+     * 从列表中查找是否存在需要hook的点
+     */
     private fun AbstractInsnNode.isHookPoint(): Boolean {
         when (this) {
             is MethodInsnNode -> {
@@ -115,6 +118,12 @@ class PrivacyTransform(private val config: PrivacyAgreementConfig) : BaseTransfo
         return false
     }
 
+    /**
+     * 构建打印信息
+     * @param classNode 类节点
+     * @param methodNode    方法节点
+     * @param hokeInstruction   描述
+     */
     private fun getLintLog(
         classNode: ClassNode,
         methodNode: MethodNode,
@@ -156,6 +165,9 @@ class PrivacyTransform(private val config: PrivacyAgreementConfig) : BaseTransfo
         return lintLog
     }
 
+    /**
+     * 通过asm插入在gradle配置的方法
+     */
     private fun insertRuntimeLog(
         classNode: ClassNode,
         methodNode: MethodNode,
@@ -279,11 +291,12 @@ class PrivacyTransform(private val config: PrivacyAgreementConfig) : BaseTransfo
         methodVisitor.visitInsn(Opcodes.RETURN)
         methodVisitor.visitMaxs(4, 5)
         methodVisitor.visitEnd()
+
     }
 
     override fun onTransformEnd() {
         if (allLintLog.isNotEmpty()) {
-            //取消注释后，将会在桌面输出检测结果
+            //将会在桌面输出检测结果
             FileUtils.write(generateLogFile(), allLintLog, Charset.defaultCharset())
         }
         runtimeRecord = null

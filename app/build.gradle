@@ -86,7 +86,7 @@ if (PRIVACY_DETECT_ENABLE.toBoolean()) {
     apply plugin: 'com.bluemoon.privacyagreement'
     privacyDetect {
         enableDetect = true
-        methodOwner = "com.bluemoon.gradledemo.PrivacySentryRecord"
+        methodOwner = "com.bluemoon.gradledemo.PrivacyAgreementRecord"
         methodName = "writeToFile"
     }
 }
