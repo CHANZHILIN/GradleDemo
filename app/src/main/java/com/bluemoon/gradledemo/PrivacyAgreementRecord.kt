@@ -14,7 +14,7 @@ object PrivacyAgreementRecord {
 
     private val simpleDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS", Locale.CHINA)
 
-    val logFile = File(application.externalCacheDir, "PrivacyAgreement.txt")
+    private val logFile = File(application.externalCacheDir, "PrivacyAgreement.txt")
 
     @JvmStatic
     fun writeToFile(log: String) {
