@@ -198,6 +198,9 @@ class PrivacyTransform(private val config: PrivacyAgreementConfig) : BaseTransfo
         methodNode.instructions.insertBefore(hokeInstruction, insnList)
     }
 
+    /**
+     * 生成writeToFile静态方法,返回值void
+     */
     private fun generateWriteToFileMethod(
         classWriter: ClassWriter,
         runtimeRecord: PrivacyRuntimeRecord

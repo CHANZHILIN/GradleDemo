@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
+ * 记录到手机的externalCacheDir
  * Created by CHEN on 2022/8/8.
  */
 object PrivacyAgreementRecord {

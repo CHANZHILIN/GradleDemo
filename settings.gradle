@@ -20,3 +20,4 @@ include ':detect64so'
 include ':myplugin'
 //includeBuild('./myplugin')
 include ':privacyAgreement'
+include ':detectBigImage'

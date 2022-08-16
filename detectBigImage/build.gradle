@@ -1,0 +1,49 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm'// Kotlin
+    id 'java-gradle-plugin' // Java Gradle Plugin
+    id 'maven-publish'
+}
+dependencies {
+//    implementation gradleApi()
+    implementation 'com.android.tools.build:gradle:4.1.1'
+    //ASM相关依赖
+    implementation 'org.ow2.asm:asm:9.2'
+    implementation 'org.ow2.asm:asm-commons:9.2'
+}
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+
+        resources {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+gradlePlugin{
+    plugins{
+        standaloneGradlePlugins{
+            id = 'detectBigImage'
+            implementationClass = 'com.bluemoon.detectbigimage.DetectBigImagePlugin'
+        }
+    }
+}
+
+publishing {
+    publications{
+        maven(MavenPublication) {
+            groupId "com.bluemoon.detectbigimage"
+            artifactId 'DetectBigImagePlugin'
+            version "1.0.0"
+            //如果是war包填写components.web，如果是jar包填写components.java
+            from components.java
+        }
+    }
+
+    repositories {
+        maven {
+            url = "../PluginDetectBigImage"
+        }
+    }
+}
