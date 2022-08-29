@@ -55,6 +55,7 @@ dependencies {
 //    implementation project(':myplugin')
     implementation files('libs/openDefault-4.2.7.aar')
     printf(">>>CHEN>>>"+Deps.glide_loader_okhttp3)
+    printf("\n>>>CHEN>>>"+Nice.HELLO)
 }
 if (ASM_ENABLE.toBoolean()) {
     apply plugin: 'com.bluemoon.plugin'
