@@ -1,15 +1,17 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.bluemoon.configPlugin'
 }
 
+import com.bluemoon.configplugin.*
 android {
     compileSdk 32
 
     defaultConfig {
         applicationId "com.bluemoon.gradledemo"
-        minSdk 21
-        targetSdk 32
+        minSdk BuildVersions.minSdkVersion
+        targetSdk  BuildVersions.targetSdkVersion
         versionCode 1
         versionName "1.0"
 
@@ -52,6 +54,7 @@ dependencies {
 
 //    implementation project(':myplugin')
     implementation files('libs/openDefault-4.2.7.aar')
+    printf(">>>CHEN>>>"+Deps.glide_loader_okhttp3)
 }
 if (ASM_ENABLE.toBoolean()) {
     apply plugin: 'com.bluemoon.plugin'
@@ -98,4 +101,5 @@ if (DETECT_BIGIMAGE_ENABLE.toBoolean()) {
         enableBigImageDetect = true
         monitorImageViewClass = "com.bluemoon.gradledemo.view.MonitorImageView"
     }
+
 }
